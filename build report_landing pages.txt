@@ -1,0 +1,20 @@
+#LANDING PAGE REPORT
+SELECT 
+    a.landingpage AS 'Landing Page', 
+    sum(impressions) as Impressions, 
+    sum(clicks) as Clicks, 
+    ifnull(round(sum(clicks)/sum(impressions)*100,2),0) as 'CTR(%)',
+    round(sum(impressions)/(SELECT sum(impressions) FROM gsc.[customer])*100,1) AS 'Impression share',
+    round(sum(clicks)/(SELECT sum(clicks) FROM gsc.[customer])*100,1) AS 'Click share',
+    COUNT(DISTINCT(searchquery)) AS '# Keywords',
+    ifnull(c.brandquery,0) AS '# Brand keywords',
+    (COUNT(DISTINCT(searchquery))-ifnull(c.brandquery,0)) AS '# Non-brand keywords',
+    #(SELECT COUNT(searchquery) FROM gsc.[customer] b WHERE b.searchquery LIKE "%[brand]%" AND b.landingpage = a.landingpage) AS '# Brand keywords',
+    ROUND(SUM(avgposition*impressions)/sum(impressions),1) AS 'Avg. rank'
+    #IF(ROUND(SUM(avgposition*impressions)/sum(impressions),1) <=100, sum(impressions)*(100-ROUND(SUM(avgposition*impressions)/sum(impressions),1)), 0) AS 'Visibility score'
+    from gsc.[customer] a LEFT JOIN (SELECT b.landingpage, COUNT(DISTINCT(b.searchquery)) AS brandquery FROM gsc.[customer] b WHERE searchquery LIKE "%[brand]%" GROUP BY b.landingpage) c ON c.landingpage = a.landingpage
+WHERE clientcountry = 'DK'
+GROUP BY a.landingpage
+ORDER BY sum(impressions) DESC
+LIMIT 0,10000
+;

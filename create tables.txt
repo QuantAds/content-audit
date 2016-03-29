@@ -1,0 +1,13 @@
+create table gsc.[customer] (
+landingpage VARCHAR(1024),
+searchquery VARCHAR(255),
+device VARCHAR(10),
+country VARCHAR(5),
+querydate DATE,
+clicks INT(10),
+impressions INT(10),
+avgposition INT(10),
+clientcountry VARCHAR(5),
+clientdomain VARCHAR(255)
+)
+;
