@@ -8,6 +8,7 @@ clicks INT(10),
 impressions INT(10),
 avgposition INT(10),
 clientcountry VARCHAR(5),
-clientdomain VARCHAR(255)
+clientdomain VARCHAR(255),
+clientID VARCHAR(5)
 )
 ;
