@@ -1,19 +1,20 @@
 #KEYWORD PAGE REPORT
+#Fixed the sum(impressions/clicks) in impressions share and keyword count by adding WHERE clauses to the subqueries
 SELECT 
     searchquery, 
     sum(impressions) as Impressions, 
     sum(clicks) as Clicks, 
     ifnull(round(sum(clicks)/sum(impressions)*100,2),0) as 'CTR(%)',
-    round(sum(impressions)/(SELECT sum(impressions) FROM gsc.[customer])*100,1) AS 'Impression share',
-    round(sum(clicks)/(SELECT sum(clicks) FROM gsc.[customer])*100,1) AS 'Click share',
+    round(sum(impressions)/(SELECT sum(impressions) FROM gsc.bsevila WHERE clientcountry = "NL" AND month(querydate) = 2)*100,1) AS 'Impression share',
+    round(sum(clicks)/(SELECT sum(clicks) FROM gsc.bsevila WHERE clientcountry = "NL" AND month(querydate) = 2)*100,1) AS 'Click share',
     COUNT(DISTINCT(landingpage)) AS '# Landing pages',
     group_concat(DISTINCT(landingpage)) as 'Landing Page',
     ROUND(SUM(avgposition*impressions)/sum(impressions),1) AS 'Avg. rank',
-    (searchquery LIKE "%[brand]%") AS brand
+    (searchquery LIKE "%vila%") AS brand
     #IF(ROUND(SUM(avgposition*impressions)/sum(impressions),1) <=100, sum(impressions)*(100-ROUND(SUM(avgposition*impressions)/sum(impressions),1)), 0) AS 'Visibility score'
-    from gsc.[customer]
-WHERE clientcountry = 'DK'
+    from gsc.bsevila
+WHERE clientcountry = 'NL'
 GROUP BY searchquery
 #ORDER BY sum(impressions) DESC
-LIMIT 0,1000
+LIMIT 0,10000
 ;
