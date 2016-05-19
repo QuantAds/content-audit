@@ -1,4 +1,5 @@
-create table gsc.[customer] (
+CREATE TABLE gsc.[table] (
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
 landingpage VARCHAR(1024),
 searchquery VARCHAR(255),
 device VARCHAR(10),
@@ -6,8 +7,9 @@ country VARCHAR(5),
 querydate DATE,
 clicks INT(10),
 impressions INT(10),
-avgposition INT(10),
-clientcountry VARCHAR(5),
-clientdomain VARCHAR(255)
-)
+avgposition DECIMAL(10,5),
+clientdomain VARCHAR(255),
+migrationgroup VARCHAR(2),
+PRIMARY KEY (id)
+) DEFAULT CHARACTER SET 'utf8mb4'
 ;
