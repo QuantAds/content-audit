@@ -1,4 +1,4 @@
-LOAD DATA LOCAL INFILE '[path]INTO TABLE gsc.[table]
+LOAD DATA LOCAL INFILE '[path]' INTO TABLE gsc.[table]
 CHARACTER SET 'UTF8mb4'
 FIELDS terminated by ','
 ESCAPED BY ''
