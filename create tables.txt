@@ -9,7 +9,6 @@ clicks INT(10),
 impressions INT(10),
 avgposition DECIMAL(10,5),
 clientdomain VARCHAR(255),
-migrationgroup VARCHAR(2),
 PRIMARY KEY (id)
 ) DEFAULT CHARACTER SET 'utf8mb4'
 ;
