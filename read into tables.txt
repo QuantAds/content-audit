@@ -1,9 +1,11 @@
-LOAD DATA LOCAL INFILE '[path]' INTO TABLE gsc.[customer]
+LOAD DATA LOCAL INFILE '[path]INTO TABLE gsc.[table]
+CHARACTER SET 'UTF8mb4'
 FIELDS terminated by ','
-OPTIONALLY enclosed by '"'
+ESCAPED BY ''
+OPTIONALLY ENCLOSED BY '"'
 LINES terminated by '\r\n'
 
 IGNORE 1 lines
-(landingpage,searchquery,device,country,@var1,clicks,impressions,@dummy,avgposition,clientdomain)
-SET querydate = STR_TO_DATE(@var1, '%Y-%m-%d'), clientcountry = "DK"
+(landingpage,searchquery,device,country,@var1,clicks,impressions,@dummy,@var2,clientdomain)
+SET querydate = STR_TO_DATE(@var1, '%Y-%m-%d'), avgposition = round(@var2, 5)
 ;
